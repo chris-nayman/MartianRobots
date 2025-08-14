@@ -5,73 +5,64 @@
         public int PositionX { get; set; }
         public int PositionY { get; set; }
         public char Orientation { get; set; }
+        public bool IsLost { get; set; }
 
         public Robot(int positionX, int positionY, char orientation)
         {
             PositionX = positionX;
             PositionY = positionY;
             Orientation = orientation;
+            IsLost = false;
         }        
 
-        public void ExecuteCommand(char instruction)
+        public void TurnLeft()
         {
-            switch (instruction)
-            {
-                case 'L':
-                    Orientation = TurnLeft(Orientation);
-                    break;
-
-                case 'R':
-                    Orientation = TurnRight(Orientation);
-                    break;
-
-                case 'F':
-                    MoveForward();
-                    break;
-
-                default:
-                    throw new ArgumentException($"Invalid instruction: {instruction}");
-            }
-        }
-
-        private char TurnLeft(char current)
-        {
-            return current switch
+            Orientation = Orientation switch
             {
                 'N' => 'W',
                 'W' => 'S',
                 'S' => 'E',
                 'E' => 'N',
-                _ => current
+                _ => Orientation
             };
         }
 
-        private char TurnRight(char current)
+        public void TurnRight()
         {
-            return current switch
+            Orientation = Orientation switch
             {
                 'N' => 'E',
                 'E' => 'S',
                 'S' => 'W',
                 'W' => 'N',
-                _ => current
+                _ => Orientation
             };
         }
 
-        private void MoveForward()
+        public void MoveForward(int x, int y)
         {
+            PositionX = x;
+            PositionY = y;
+        }
+
+        public (int nx, int ny) NextForwardMovePosition()
+        {
+            int x = PositionX, y = PositionY;
             switch (Orientation)
             {
-                case 'N': PositionY++; break;
-                case 'S': PositionY--; break;
-                case 'E': PositionX++; break;
-                case 'W': PositionX--; break;
+                case 'N': y++; break;
+                case 'S': y--; break;
+                case 'E': x++; break;
+                case 'W': x--; break;
             }
+            return (x, y);
         }
 
         public override string ToString()
         {
-            return $"{PositionX} {PositionY} {Orientation}";             
+            return IsLost 
+                ? $"{PositionX} {PositionY} {Orientation} LOST"
+                : $"{PositionX} {PositionY} {Orientation}";
         }
     }
 }
