@@ -31,36 +31,22 @@
             var instructions = "RFRFRFRF";
 
             var robot = new Robot(1, 1, 'E');
+            var grid = new Grid(gridWidth, gridHeight);
 
-            Console.WriteLine(robot.ToString());
-            DrawGrid(gridWidth, gridHeight, robot);
+            Console.WriteLine(robot);
+            grid.Draw(robot);
             Console.WriteLine();
 
             foreach (var i in instructions)
             {
                 robot.ExecuteCommand(i);
-                Console.WriteLine(robot.ToString());
-                DrawGrid(gridWidth, gridHeight, robot);
+                Console.WriteLine(robot);
+                grid.Draw(robot);
                 Console.WriteLine();
             }
 
             Console.WriteLine();
             Console.WriteLine("Program End");
-        }
-
-        static void DrawGrid(int maxX, int maxY, Robot r)
-        {
-            for (int y = maxY; y > 0; y--) // top row first
-            {
-                for (int x = 0; x < maxX; x++)
-                {
-                    if (x == r.PositionX && y == r.PositionY+1)
-                        Console.Write(r.Orientation);
-                    else
-                        Console.Write(".");
-                }
-                Console.WriteLine();
-            }
         }
     }
 }
