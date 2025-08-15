@@ -2,8 +2,8 @@
 
 public class Grid
 {
-    private readonly int _width;
-    private readonly int _height;
+    public int Width { get; }
+    public int Height { get; }
 
     // HashSet to drop scent markers | why?...
     // - only stores unique values
@@ -11,14 +11,16 @@ public class Grid
     // - additionally the tuple syntax is readable and concise
     private readonly HashSet<(int x, int y, char o)> _scents = new();
 
-    public Grid(int width, int height)
+    public Grid(int width, int height, int MaxCoordinate)
     {
-        _width = width;
-        _height = height;
-    }
+        if (width < 0 || width > MaxCoordinate)
+            throw new ArgumentOutOfRangeException(nameof(width), $"Grid width must be between 0 and {MaxCoordinate}.");
+        if (height < 0 || height > MaxCoordinate)
+            throw new ArgumentOutOfRangeException(nameof(height), $"Grid height must be between 0 and {MaxCoordinate}.");
 
-    public int Width => _width;
-    public int Height => _height;
+        Width = width;
+        Height = height;
+    }
 
     public bool IsInsideGrid(int x, int y)
         => x >= 0 && x <= Width && y >= 0 && y <= Height;
@@ -28,20 +30,4 @@ public class Grid
 
     public void LeaveScent(int x, int y, char orientation)
         => _scents.Add((x, y, orientation));
-
-    public void Draw(Robot robot)
-    {
-        // Print from top to bottom
-        for (int y = _height - 1; y >= 0; y--)
-        {
-            for (int x = 0; x < _width; x++)
-            {
-                if (x == robot.PositionX && y == robot.PositionY)
-                    Console.Write(robot.Orientation);
-                else
-                    Console.Write(".");
-            }
-            Console.WriteLine();
-        }
-    }
 }

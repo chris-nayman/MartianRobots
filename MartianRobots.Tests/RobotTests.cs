@@ -6,11 +6,11 @@
         public void Run_And_Get_Expected_Results_For_Sample_Scenarios()
         {
             // Arrange
-            var grid = new Grid(5, 3);
+            var grid = new Grid(5, 3, 50);
             var runner = new RobotRunner(grid);
-            var r1 = new Robot(1, 1, 'E');
-            var r2 = new Robot(3, 2, 'N');
-            var r3 = new Robot(0, 3, 'W');
+            var r1 = new Robot(1, 1, 'E', 50);
+            var r2 = new Robot(3, 2, 'N', 50);
+            var r3 = new Robot(0, 3, 'W', 50);
 
             // Act
             runner.Run(r1, "RFRFRFRF");

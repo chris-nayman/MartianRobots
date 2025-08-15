@@ -7,8 +7,13 @@
         public char Orientation { get; set; }
         public bool IsLost { get; set; }
 
-        public Robot(int positionX, int positionY, char orientation)
+        public Robot(int positionX, int positionY, char orientation, int MaxCoordinate)
         {
+            if (positionX > MaxCoordinate)
+                throw new ArgumentOutOfRangeException(nameof(positionX), $"Robot X starting position is outside of grid bounds: {MaxCoordinate}.");
+            if (positionY > MaxCoordinate)
+                throw new ArgumentOutOfRangeException(nameof(positionY), $"Robot Y starting position is outside of grid bounds: {MaxCoordinate}.");
+
             PositionX = positionX;
             PositionY = positionY;
             Orientation = orientation;
