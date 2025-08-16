@@ -23,6 +23,12 @@ This project is an implementation of the **Martian Robots** problem, completed a
 
 ---
 
+## Assumptions
+
+- The grid cannot be initialized with either height or width < 2
+
+---
+
 ## 🚀 Getting Started
 
 Pull down the project and `cd` into the MartianRobots directory, then

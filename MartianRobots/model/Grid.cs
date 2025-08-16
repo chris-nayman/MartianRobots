@@ -13,10 +13,13 @@ public class Grid
 
     public Grid(int width, int height, int MaxCoordinate)
     {
-        if (width < 0 || width > MaxCoordinate)
-            throw new ArgumentOutOfRangeException(nameof(width), $"Grid width must be between 0 and {MaxCoordinate}.");
-        if (height < 0 || height > MaxCoordinate)
-            throw new ArgumentOutOfRangeException(nameof(height), $"Grid height must be between 0 and {MaxCoordinate}.");
+        /* The spec does not specify a minimum value for the width and height of the grid
+            but I am making the call to not allow < 2. IRL this would be discussed with the 
+            stakeholder */ 
+        if (width < 2 || width > MaxCoordinate)
+            throw new ArgumentOutOfRangeException(nameof(width), $"Grid width must be between 2 and {MaxCoordinate}.");
+        if (height < 2 || height > MaxCoordinate)
+            throw new ArgumentOutOfRangeException(nameof(height), $"Grid height must be between 2 and {MaxCoordinate}.");
 
         Width = width;
         Height = height;
