@@ -1,4 +1,6 @@
-﻿namespace MartianRobots.Tests
+﻿using MartianRobots.model;
+
+namespace MartianRobots.Tests
 {
     public class RobotTests
     {

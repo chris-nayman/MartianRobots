@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace MartianRobots
+namespace MartianRobots.infrastructure
 {
     public static class InputFileHandler
     {
@@ -18,10 +18,11 @@ namespace MartianRobots
 
         public static InputModel ParseFile(string path)
         {
-            if (!File.Exists(path))
-                throw new FileNotFoundException("Input file not found.", path);
+            string filePath = Path.Combine(AppContext.BaseDirectory, path);
+            if (!File.Exists(filePath))
+                throw new FileNotFoundException("Input file not found.", filePath);
 
-            var rawLines = File.ReadAllLines(path);
+            var rawLines = File.ReadAllLines(filePath);
 
             // Clean up: trim, drop empty lines
             var lines = new List<string>();

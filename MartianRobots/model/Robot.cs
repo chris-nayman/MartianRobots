@@ -1,4 +1,4 @@
-﻿namespace MartianRobots
+﻿namespace MartianRobots.model
 {
     public class Robot
     {

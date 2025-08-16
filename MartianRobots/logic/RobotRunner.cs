@@ -1,4 +1,4 @@
-﻿using MartianRobots;
+﻿using MartianRobots.model;
 
 public class RobotRunner
 {

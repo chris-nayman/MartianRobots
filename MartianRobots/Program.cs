@@ -1,4 +1,5 @@
-﻿using static MartianRobots.InputFileHandler;
+﻿using MartianRobots.model;
+using static MartianRobots.infrastructure.InputFileHandler;
 
 namespace MartianRobots
 {
@@ -50,7 +51,8 @@ namespace MartianRobots
 
             // Clean & close up
             Console.WriteLine();
-            Console.WriteLine("Program End");
+            Console.WriteLine("Program End: Press any key to exit");
+            Console.ReadKey();
         }
     }
 }
