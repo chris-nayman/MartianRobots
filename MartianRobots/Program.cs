@@ -1,5 +1,6 @@
-﻿using MartianRobots.model;
-using static MartianRobots.infrastructure.InputFileHandler;
+﻿using MartianRobots.model.impl;
+using MartianRobots.ui;
+using System.Text;
 
 namespace MartianRobots
 {
@@ -7,52 +8,42 @@ namespace MartianRobots
     {
         static void Main(string[] args)
         {
-            InputModel model;
-            try
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.InputEncoding = Encoding.UTF8;
+
+            LandingChoice choice;
+            do
             {
-                model = ParseFile("input.txt");
+                choice = LandingScreen.Show();
+
+                switch (choice)
+                {
+                    case LandingChoice.RunSampleCases:
+                    {
+                        var (fileViewModel, fileInputError) = RobotController.Execute(new FileInputProvider("input.txt"));
+                        if (fileInputError is not null)
+                            SampleResultsScreen.ShowError(fileInputError);
+                        else
+                            SampleResultsScreen.Show(fileViewModel!);
+                        break;
+                    }
+
+                    case LandingChoice.RunInteractiveMode:
+                    {
+                        var (consoleViewModel, consoleError) = RobotController.Execute(new ConsoleInputProvider());
+                        if (consoleError is not null)
+                            ConsoleResultsScreen.ShowError(consoleError);
+                        else
+                            ConsoleResultsScreen.Show(consoleViewModel!);
+                        break;
+                    }
+
+                    case LandingChoice.Exit:
+                        // fall through to end the loop
+                        break;
+                }
             }
-            catch (Exception ex)
-            {
-                Console.Error.WriteLine($"Failed to parse input: {ex.Message}");
-                return;
-            }
-
-            // Constants
-            const int MaxCoordinate = 50;
-
-            // Inputs
-            int gridWidth = model.Width;
-            int gridHeight = model.Height;
-
-            // Initialize
-            var grid = new Grid(gridWidth, gridHeight, MaxCoordinate);
-            var runner = new RobotRunner(grid);
-
-            // Prime
-            Console.WriteLine("Martian Robots");
-            Console.WriteLine("-----------");
-            Console.WriteLine($"Grid | Width: {gridWidth} Height: {gridHeight}");
-            Console.WriteLine();
-
-            // Execute
-            var index = 1;
-            foreach (var scenario in model.Scenarios)
-            {
-                var r = new Robot(scenario.StartX, scenario.StartY, scenario.Orientation, MaxCoordinate);
-                Console.WriteLine($"Robot {index} input | {r.PositionX} {r.PositionY} {scenario.Orientation} | Instructions: {scenario.Instructions}");
-
-                var result = runner.Run(r, scenario.Instructions);
-                Console.WriteLine($"Robot {index} result: {result}");
-
-                index++;
-                Console.WriteLine();
-            }
-
-            // Clean & close up
-            Console.WriteLine();
-            Console.WriteLine("Program End: Press any key to exit");
-            Console.ReadKey();
+            while (choice != LandingChoice.Exit);
         }
     }
 }

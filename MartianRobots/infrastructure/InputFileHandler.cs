@@ -1,20 +1,11 @@
-﻿using System.Globalization;
+﻿using MartianRobots.model;
+using System.Globalization;
 
 namespace MartianRobots.infrastructure
 {
-    public static class InputFileHandler
+    public static partial class InputFileHandler
     {
-        const int MaxInstructionString = 100;
-
-        // Chose a record over class or struct here as it is immutable by default
-        public record Scenario(int StartX, int StartY, char Orientation, string Instructions);
-
-        public sealed class InputModel
-        {
-            public int Width { get; init; }
-            public int Height { get; init; }
-            public List<Scenario> Scenarios { get; } = new();
-        }
+        const int MaxInstructionString = 100;        
 
         public static InputModel ParseFile(string path)
         {
