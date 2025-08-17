@@ -8,6 +8,7 @@ namespace MartianRobots.model.impl
     {
         public (InputModel? Model, string? Error) Get()
         {
+            // TODO: Pull the maxCoord (50) into AppSettings - Time restricted atm
             return InputScreens.BuildModelFromConsole(50);
         }
     }

@@ -6,6 +6,8 @@ public class RobotController
 {
     public static (ResultsViewModel? ViewModel, string? Error) Execute(IInputProvider provider, int maxCoordinate = 50)
     {
+        // TODO: move maxCoordinate to AppSettings
+
         // Able to inject an InputProvider here. 
         // For this implemetation I have added ones for file & console
         var (model, readError) = provider.Get();

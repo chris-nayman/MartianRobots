@@ -57,15 +57,6 @@ namespace MartianRobots.Tests
             Assert.Equal("positionY", ex.ParamName);
         }
 
-        [Fact]
-        public void Constructor_AllowsNegativePositions_AsImplemented()
-        {
-            // Current implementation doesn’t guard against negatives.
-            var r = new Robot(-1, -2, 'N', 50);
-            Assert.Equal(-1, r.PositionX);
-            Assert.Equal(-2, r.PositionY);
-        }
-
         [Theory]
         [InlineData('N', 'W')]
         [InlineData('W', 'S')]

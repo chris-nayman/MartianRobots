@@ -56,7 +56,7 @@ namespace MartianRobots.infrastructure
             int width = int.Parse(parts[0], CultureInfo.InvariantCulture);
             int height = int.Parse(parts[1], CultureInfo.InvariantCulture);
 
-            if (width < 0 || height < 0)
+            if (width < 0 || height < 0) // TODO: Should make the minimum dimentions 2 
                 throw new InvalidDataException("Grid dimensions must be non-negative.");
 
             return (width, height);
@@ -85,7 +85,7 @@ namespace MartianRobots.infrastructure
                     $"Instruction string exceeds {MaxInstructionString} characters {line.Length}.");
 
             // Allow only L, R, F 
-            // TODO: Update this after refactoring in the Command or Strategy pattern to allow new instruction types
+            // TODO: Update this after refactoring in the Command or Strategy pattern to easily allow new instruction types
             foreach (var c in line)
             {
                 if (c is not ('L' or 'R' or 'F'))
